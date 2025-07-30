@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: fire-watch
+  datasource:
+    url: jdbc:postgresql://localhost:35432/firewatch
+    username: postgres
+    password: postgres123
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
+app:
+  upload:
+    dir: uploads
+
+server:
+  port: 8080
+
+logging:
+  level:
+    com.firewatch: DEBUG

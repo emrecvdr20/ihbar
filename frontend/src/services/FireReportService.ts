@@ -43,4 +43,14 @@ export class FireReportService {
         );
         return response.json();
     }
+
+    async updateReportStatus(reportId: number, status: string): Promise<void> {
+        const response = await fetch(
+            `${this.baseUrl}/${reportId}/status?status=${status}`,
+            { method: 'PUT' }
+        );
+        if (!response.ok) {
+            throw new Error('Status güncellenirken hata oluştu');
+        }
+    }
 }

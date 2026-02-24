@@ -21,21 +21,8 @@ const {Title, Text, Paragraph} = Typography;
 
 const fireReportService = new FireReportService();
 
-interface ReportData {
-    id: number;
-    latitude: number;
-    longitude: number;
-    description: string | null;
-    photoUrl: string | null;
-    reporterPhone: string | null;
-    reportedAt: string;
-    status: string;
-    address: string | null;
-    urgencyLevel: string;
-}
-
 export const AdminPanel: React.FC = () => {
-    const [reports, setReports] = useState<ReportData[]>([]);
+    const [reports, setReports] = useState<FireReportData[]>([]);
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState<string>('ALL');
 
@@ -61,10 +48,8 @@ export const AdminPanel: React.FC = () => {
 
     const updateStatus = async (reportId: number, newStatus: string) => {
         try {
-            await fetch(`http://localhost:8080/api/fire-reports/${reportId}/status?status=${newStatus}`, {
-                method: 'PUT'
-            });
-            await loadReports(); // Reload reports after update
+            await fireReportService.updateReportStatus(reportId, newStatus);
+            await loadReports();
         } catch (error) {
             console.error('Status güncellenemedi:', error);
         }
